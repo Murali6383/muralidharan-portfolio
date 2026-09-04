@@ -49,18 +49,76 @@ const navItems = [
   "contact",
 ];
 
+/* ================= TECHNICAL SKILLS ================= */
+
 const skillGroups = [
   {
-    label: "Programming",
+    label: "Programming Languages",
     icon: Code2,
-    skills: ["HTML", "CSS", "JavaScript", "Python", "Java", "MySQL"],
+    skills: [
+      "Python",
+      "Java (Basics)",
+      "JavaScript",
+      "SQL",
+    ],
   },
   {
-    label: "Tools",
+    label: "Networking",
     icon: Network,
-    skills: ["VS Code", "GitHub"],
+    skills: [
+      "CCNA",
+      "TCP/IP",
+      "DNS",
+      "HTTP/HTTPS",
+      "Subnetting",
+      "Routing & Switching",
+      "AWS VPC & Networking",
+    ],
+  },
+  {
+    label: "Tools Known",
+    icon: GitBranch,
+    skills: [
+      "VS Code",
+      "Git",
+      "GitHub",
+    ],
+  },
+  {
+    label: "Frontend Development",
+    icon: Code2,
+    skills: [
+      "React.js",
+      "Next.js",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Vite",
+    ],
+  },
+  {
+    label: "Backend Development",
+    icon: Network,
+    skills: [
+      "Node.js",
+      "Express.js",
+      "FastAPI",
+      "REST APIs",
+    ],
+  },
+  {
+    label: "Testing & Debugging",
+    icon: Check,
+    skills: [
+      "Playwright",
+      "API Testing",
+      "Bug Fixing",
+      "Troubleshooting",
+    ],
   },
 ];
+
+/* ================= SECTION HEADING ================= */
 
 function SectionHeading({
   eyebrow,
@@ -77,10 +135,16 @@ function SectionHeading({
 
       <h2>{title}</h2>
 
-      {copy && <p className="section-copy">{copy}</p>}
+      {copy && (
+        <p className="section-copy">
+          {copy}
+        </p>
+      )}
     </div>
   );
 }
+
+/* ================= PLACEHOLDER LINK ================= */
 
 function PlaceholderLink({
   href,
@@ -90,53 +154,80 @@ function PlaceholderLink({
   children: React.ReactNode;
 }) {
   return (
-    <a href={href} aria-label={`${children} placeholder link`}>
+    <a
+      href={href}
+      aria-label={`${children} placeholder link`}
+    >
       {children}
 
-      <span className="placeholder-label">placeholder</span>
+      <span className="placeholder-label">
+        placeholder
+      </span>
     </a>
   );
 }
 
+/* ================= MAIN PAGE ================= */
+
 export default function Page() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] =
+    useState(false);
 
-  const [active, setActive] = useState("about");
+  const [active, setActive] =
+    useState("about");
 
-  const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
+  const [filter, setFilter] =
+    useState<"All" | ProjectCategory>("All");
 
-  const [selected, setSelected] = useState<Project | null>(null);
+  const [selected, setSelected] =
+    useState<Project | null>(null);
 
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] =
+    useState(false);
 
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] =
+    useState(false);
 
-  const [sending, setSending] = useState(false);
+  const [sending, setSending] =
+    useState(false);
+
+  /* ================= FILTER PROJECTS ================= */
 
   const filteredProjects = useMemo(
     () =>
       filter === "All"
         ? projects
-        : projects.filter((project) => project.category === filter),
+        : projects.filter(
+            (project) =>
+              project.category === filter,
+          ),
     [filter],
   );
 
+  /* ================= SCROLL OBSERVER ================= */
+
   useEffect(() => {
     const sections = navItems
-      .map((id) => document.getElementById(id))
+      .map((id) =>
+        document.getElementById(id),
+      )
       .filter(Boolean);
 
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        }),
-      {
-        rootMargin: "-30% 0px -60% 0px",
-      },
-    );
+    const observer =
+      new IntersectionObserver(
+        (entries) =>
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActive(
+                entry.target.id,
+              );
+            }
+          }),
+        {
+          rootMargin:
+            "-30% 0px -60% 0px",
+        },
+      );
 
     sections.forEach((section) => {
       if (section) {
@@ -144,21 +235,26 @@ export default function Page() {
       }
     });
 
-    const revealObserver = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        }),
-      {
-        threshold: 0.12,
-      },
-    );
+    const revealObserver =
+      new IntersectionObserver(
+        (entries) =>
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(
+                "is-visible",
+              );
+            }
+          }),
+        {
+          threshold: 0.12,
+        },
+      );
 
     document
       .querySelectorAll(".reveal")
-      .forEach((element) => revealObserver.observe(element));
+      .forEach((element) =>
+        revealObserver.observe(element),
+      );
 
     return () => {
       observer.disconnect();
@@ -166,9 +262,13 @@ export default function Page() {
     };
   }, []);
 
+  /* ================= COPY EMAIL ================= */
+
   const copyEmail = async () => {
     try {
-      await navigator.clipboard?.writeText(email);
+      await navigator.clipboard?.writeText(
+        email,
+      );
 
       setCopied(true);
 
@@ -176,24 +276,28 @@ export default function Page() {
         setCopied(false);
       }, 1800);
     } catch (error) {
-      console.error("Failed to copy email:", error);
+      console.error(
+        "Failed to copy email:",
+        error,
+      );
     }
   };
 
-  /*
-   * CONTACT FORM SUBMIT
-   *
-   * Important:
-   * We save event.currentTarget into `form`
-   * before the async EmailJS request.
-   *
-   * This prevents:
-   * Cannot read properties of null (reading 'reset')
-   */
+  /* ================= EMAILJS FORM ================= */
+
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
+
+    /*
+     * Save the form reference before
+     * the asynchronous EmailJS request.
+     *
+     * This fixes:
+     * Cannot read properties of null
+     * (reading 'reset')
+     */
 
     const form = event.currentTarget;
 
@@ -206,11 +310,13 @@ export default function Page() {
         "template_tvghk5p",
         form,
         {
-          publicKey: "saUcKQVx6BIIjZ6E9",
+          publicKey:
+            "saUcKQVx6BIIjZ6E9",
         },
       );
 
-      // Reset the form using the saved reference
+      /* Reset form after successful email */
+
       form.reset();
 
       setSent(true);
@@ -219,7 +325,10 @@ export default function Page() {
         setSent(false);
       }, 3000);
     } catch (error) {
-      console.error("Email failed:", error);
+      console.error(
+        "Email failed:",
+        error,
+      );
 
       alert(
         "Message failed to send. Please try again.",
@@ -231,7 +340,8 @@ export default function Page() {
 
   return (
     <main>
-      {/* Background grid */}
+      {/* ================= BACKGROUND ================= */}
+
       <div
         className="ambient-grid"
         aria-hidden="true"
@@ -256,7 +366,9 @@ export default function Page() {
 
         <nav
           className={`desktop-nav ${
-            menuOpen ? "mobile-open" : ""
+            menuOpen
+              ? "mobile-open"
+              : ""
           }`}
           aria-label="Primary navigation"
         >
@@ -294,6 +406,7 @@ export default function Page() {
           }
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
+          type="button"
         >
           {menuOpen ? (
             <X />
@@ -322,17 +435,20 @@ export default function Page() {
           </h1>
 
           <p className="hero-role">
-            Software Engineer <i>/</i>{" "}
-            Web Developer <i>/</i> AI/ML
-            Enthusiast
+            Software Engineer{" "}
+            <i>/</i>{" "}
+            Web Developer{" "}
+            <i>/</i>{" "}
+            AI/ML Enthusiast
           </p>
 
           <p className="hero-intro">
-            I build modern web applications
-            and intelligent solutions with a
-            strong interest in software
-            development, AI/ML, and emerging
-            technologies.
+            I build modern web
+            applications and intelligent
+            solutions with a strong
+            interest in software
+            development, AI/ML, and
+            emerging technologies.
           </p>
 
           <div className="hero-actions">
@@ -422,23 +538,25 @@ export default function Page() {
         <div className="about-grid">
           <div className="about-text reveal">
             <p>
-              I&apos;m a B.E. Computer Science
-              Engineering student at IFET
-              College of Engineering, with a
-              CGPA of <strong>8.70</strong>. My
+              I&apos;m a B.E. Computer
+              Science Engineering student
+              at IFET College of Engineering,
+              with a CGPA of{" "}
+              <strong>8.70</strong>. My
               interests span software
               development, web experiences,
               and AI/ML project work.
             </p>
 
             <p>
-              I enjoy learning continuously,
-              solving problems, and turning
-              ideas into practical technology
-              solutions. Whether I&apos;m shaping a
-              responsive interface or exploring
-              a model, I care about clarity and
-              real-world value.
+              I enjoy learning
+              continuously, solving problems,
+              and turning ideas into
+              practical technology
+              solutions. Whether I&apos;m shaping
+              a responsive interface or
+              exploring a model, I care about
+              clarity and real-world value.
             </p>
 
             <a
@@ -480,8 +598,9 @@ export default function Page() {
         className="section container"
       >
         <SectionHeading
-          eyebrow="02 / Skills"
-          title="Tools I use to make ideas real."
+          eyebrow="02 / Technical Skills"
+          title="Technologies and tools I work with."
+          copy="A practical toolkit covering programming, networking, frontend, backend, tools, testing, and debugging."
         />
 
         <div className="skills-grid">
@@ -502,11 +621,13 @@ export default function Page() {
                 </div>
 
                 <div className="skill-list">
-                  {skills.map((skill) => (
-                    <span key={skill}>
-                      {skill}
-                    </span>
-                  ))}
+                  {skills.map(
+                    (skill) => (
+                      <span key={skill}>
+                        {skill}
+                      </span>
+                    ),
+                  )}
                 </div>
               </div>
             ),
@@ -527,7 +648,9 @@ export default function Page() {
 
         <div className="experience-card glass-card reveal">
           <div className="experience-icon">
-            <BriefcaseBusiness size={23} />
+            <BriefcaseBusiness
+              size={23}
+            />
           </div>
 
           <div>
@@ -536,8 +659,8 @@ export default function Page() {
             </p>
 
             <h3>
-              Web Development &amp; Digital
-              Marketing
+              Web Development &amp;
+              Digital Marketing
             </h3>
 
             <p className="company">
@@ -545,9 +668,9 @@ export default function Page() {
             </p>
 
             <p className="muted">
-              Internship experience focused
-              on web development and digital
-              marketing.
+              Internship experience
+              focused on web development
+              and digital marketing.
             </p>
           </div>
 
@@ -594,6 +717,7 @@ export default function Page() {
                     item as typeof filter,
                   )
                 }
+                type="button"
               >
                 {item}
               </button>
@@ -615,9 +739,12 @@ export default function Page() {
                   setSelected(project)
                 }
                 tabIndex={0}
-                onKeyDown={(event) => {
+                onKeyDown={(
+                  event,
+                ) => {
                   if (
-                    event.key === "Enter"
+                    event.key ===
+                    "Enter"
                   ) {
                     setSelected(project);
                   }
@@ -667,17 +794,22 @@ export default function Page() {
                   <div className="tag-row">
                     {project.stack
                       .slice(0, 4)
-                      .map((tag) => (
-                        <span key={tag}>
-                          {tag}
-                        </span>
-                      ))}
+                      .map(
+                        (tag) => (
+                          <span
+                            key={tag}
+                          >
+                            {tag}
+                          </span>
+                        ),
+                      )}
 
-                    {project.stack.length >
-                      4 && (
+                    {project.stack
+                      .length > 4 && (
                       <span>
                         +
-                        {project.stack.length -
+                        {project.stack
+                          .length -
                           4}
                       </span>
                     )}
@@ -703,7 +835,9 @@ export default function Page() {
         <div className="education-grid">
           <div className="education-card glass-card reveal">
             <div className="timeline-dot">
-              <GraduationCap size={19} />
+              <GraduationCap
+                size={19}
+              />
             </div>
 
             <p className="eyebrow">
@@ -711,11 +845,13 @@ export default function Page() {
             </p>
 
             <h3>
-              Bachelor of Engineering (B.E.)
+              Bachelor of Engineering
+              (B.E.)
             </h3>
 
             <p>
-              Computer Science Engineering
+              Computer Science
+              Engineering
             </p>
 
             <strong>
@@ -724,13 +860,16 @@ export default function Page() {
             </strong>
 
             <span>
-              Villupuram <b>·</b> CGPA: 8.70
+              Villupuram <b>·</b> CGPA:
+              8.70
             </span>
           </div>
 
           <div className="education-card glass-card reveal">
             <div className="timeline-dot">
-              <GraduationCap size={19} />
+              <GraduationCap
+                size={19}
+              />
             </div>
 
             <p className="eyebrow">
@@ -819,10 +958,14 @@ export default function Page() {
           />
 
           <div className="contact-details">
-            <a href={`mailto:${email}`}>
+            <a
+              href={`mailto:${email}`}
+            >
               <Mail size={18} />
 
-              <span>{email}</span>
+              <span>
+                {email}
+              </span>
             </a>
 
             <button
@@ -852,12 +995,13 @@ export default function Page() {
             <p>
               <MapPin size={18} />
 
-              Panruti, Tamil Nadu, India
+              Panruti, Tamil Nadu,
+              India
             </p>
           </div>
         </div>
 
-        {/* ================= EMAILJS FORM ================= */}
+        {/* ================= EMAIL FORM ================= */}
 
         <form
           className="contact-form glass-card reveal"
@@ -924,8 +1068,8 @@ export default function Page() {
               className="form-success"
               role="status"
             >
-              Thanks! Your message has been
-              sent successfully.
+              Thanks! Your message has
+              been sent successfully.
             </p>
           )}
         </form>
@@ -1017,7 +1161,9 @@ export default function Page() {
                 </p>
 
                 <p className="muted">
-                  {selected.functionality}
+                  {
+                    selected.functionality
+                  }
                 </p>
               </div>
             )}
@@ -1030,14 +1176,18 @@ export default function Page() {
                   rel="noopener noreferrer"
                   aria-label="Open GitHub repository"
                 >
-                  <GitBranch size={16} />
+                  <GitBranch
+                    size={16}
+                  />
 
                   GitHub
                 </a>
               )}
 
               <a
-                href={placeholderLinks.demo}
+                href={
+                  placeholderLinks.demo
+                }
                 aria-label="Open live demo"
               >
                 <ExternalLink
@@ -1051,7 +1201,7 @@ export default function Page() {
         </div>
       )}
 
-      {/* ================= FLOATING BACK TOP ================= */}
+      {/* ================= BACK TO TOP ================= */}
 
       <a
         className="back-top"
