@@ -113,12 +113,40 @@ const skillGroups = [
   },
 ];
 
-const projectFilters: Array<"All" | ProjectCategory> = [
+const skillLogoMap: Record<string, string> = {
+  Python: "python",
+  "Java (Basics)": "openjdk",
+  JavaScript: "javascript",
+  SQL: "mysql",
+
+  "React.js": "react",
+  "Next.js": "nextdotjs",
+  HTML5: "html5",
+  CSS3: "css3",
+  "Tailwind CSS": "tailwindcss",
+  Vite: "vite",
+
+  "Node.js": "nodedotjs",
+  "Express.js": "express",
+  FastAPI: "fastapi",
+
+  AWS: "amazonaws",
+  Docker: "docker",
+  Jenkins: "jenkins",
+  Kubernetes: "kubernetes",
+  Git: "git",
+  GitHub: "github",
+
+   "VS Code": "vscode",
+  Playwright: "playwright",
+  Postman: "postman",
+};
+
+const projectFilters = [
   "All",
-  "Web Development",
-  "AI/ML",
-  "Mobile",
-  "Other",
+  "Full Stack",
+  "AI / ML",
+  "DevOps",
 ];
 
 function SectionHeading({
@@ -136,6 +164,30 @@ function SectionHeading({
       <h2>{title}</h2>
       {copy && <p className="section-copy">{copy}</p>}
     </div>
+  );
+}
+
+function SkillLogo({ skill }: { skill: string }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const slug = skillLogoMap[skill];
+
+  if (!slug || imageFailed) {
+    return (
+      <span className="skill-logo-fallback" aria-hidden="true">
+        <Code2 size={21} />
+      </span>
+    );
+  }
+
+  return (
+    <span className="skill-logo">
+      <img
+        src={`https://cdn.simpleicons.org/${slug}`}
+        alt=""
+        loading="lazy"
+        onError={() => setImageFailed(true)}
+      />
+    </span>
   );
 }
 
@@ -233,6 +285,7 @@ export default function Page() {
         : projects.filter((project) => project.category === filter),
     [filter],
   );
+  
 
   /* ================= SCROLL EFFECTS ================= */
 
@@ -1058,22 +1111,25 @@ export default function Page() {
           copy="Technologies and tools I use in my development projects and hands-on learning."
         />
 
-        <div className="skills-grid">
-          {skillGroups.map(({ label, icon: Icon, skills }) => (
-            <div className="glass-card skill-card reveal" key={label}>
-              <div className="card-heading">
-                <Icon size={20} />
-                <h3>{label}</h3>
-              </div>
+      <div className="skills-grid">
+      {skillGroups.map(({ label, icon: Icon, skills }) => (
+      <div className="glass-card skill-card reveal" key={label}>
+      <div className="card-heading">
+        <Icon size={20} />
+        <h3>{label}</h3>
+      </div>
 
-              <div className="skill-list">
-                {skills.map((skill) => (
-                  <span key={skill}>{skill}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="skill-list skill-logo-list">
+        {skills.map((skill) => (
+          <div className="skill-logo-item" key={skill}>
+            <SkillLogo skill={skill} />
+            <span>{skill}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
       </section>
 
       {/* ================= EXPERIENCE ================= */}

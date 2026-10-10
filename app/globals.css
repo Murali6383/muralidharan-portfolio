@@ -2188,3 +2188,140 @@ section[id] {
     padding: 10px 12px;
   }
 }
+/* ================= TECHNICAL TOOLKIT LOGOS ================= */
+
+.skill-logo-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.skill-logo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid rgba(129, 140, 248, 0.16);
+  border-radius: 13px;
+  background: rgba(129, 140, 248, 0.045);
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.skill-logo-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(129, 140, 248, 0.55);
+  background: rgba(129, 140, 248, 0.10);
+}
+
+.skill-logo {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.skill-logo img {
+  display: block;
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+.skill-logo-fallback {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(129, 140, 248, 0.22);
+  border-radius: 10px;
+  color: #818cf8;
+}
+
+@media (max-width: 420px) {
+  .skill-logo-list {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-logo-item {
+    min-height: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-logo-item {
+    transition: none;
+  }
+
+  .skill-logo-item:hover {
+    transform: none;
+  }
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.skill-card {
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.card-heading {
+  gap: 8px;
+}
+
+.card-heading h3 {
+  font-size: 14px;
+}
+
+.skill-logo-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.skill-logo-item {
+  min-height: 44px;
+  padding: 7px;
+  gap: 7px;
+  font-size: 11px;
+}
+
+.skill-logo,
+.skill-logo-fallback {
+  width: 28px;
+  height: 28px;
+  flex-basis: 28px;
+}
+
+.skill-logo img {
+  width: 19px;
+  height: 19px;
+}
+
+@media (max-width: 900px) {
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
