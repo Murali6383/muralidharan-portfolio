@@ -1,13 +1,13 @@
 export const certifications = [
   {
-    title: "Basic of Python",
-    issuer: "Infosys Springboard",
-    date: "November 2024",
+    title: "AWS Cloud Practitioner Essentials",
+    issuer: "AWS Training & Certification",
+    date: "September 2026",
   },
   {
-    title: "Front End Development - HTML",
-    issuer: "Great Learning Academy",
-    date: "December 2024",
+    title: "Geodata Analysis",
+    issuer: "Indian Space Research Organization (ISRO)",
+    date: "September 2026",
   },
   {
     title: "Python Essentials",

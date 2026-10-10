@@ -3,21 +3,26 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MURALIDHARAN S | Software Engineer & Web Developer",
+  title: "Muralidharan S | Software Developer & AI/ML Enthusiast",
   description:
-    "Portfolio of Muralidharan S, a Computer Science Engineering student and software developer building web, AI/ML, and mobile applications.",
-  generator: "v0.app",
+    "Explore Muralidharan S's portfolio featuring web development, AI/ML projects, technical skills, education, and certifications.",
   openGraph: {
-    title: "MURALIDHARAN S | Software Engineer & Web Developer",
+    title: "Muralidharan S | Developer Portfolio",
     description:
-      "Portfolio of Muralidharan S, a Computer Science Engineering student and software developer building web, AI/ML, and mobile applications.",
+      "Software development, web applications, AI/ML projects, and technical experience.",
     type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
 export const viewport: Viewport = {
-  colorScheme: "dark",
-  themeColor: "#070b12",
+  colorScheme: "light",
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
   userScalable: true,
 };
 
@@ -25,7 +30,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en">
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
