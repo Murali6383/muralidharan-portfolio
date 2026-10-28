@@ -1,6 +1,15 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Muralidharan Software Solutions",
+  description: "Freelance software development and AI solutions.",
+  verification: {
+    google: "brUyz-RbZi7u0ISCmF_JYJ_zH4EE3k2thBhyKYCwzi0",
+  },
+};
 
 export const metadata: Metadata = {
   title: "Muralidharan S | Software Developer & AI/ML Enthusiast",
