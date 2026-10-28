@@ -1,7 +1,7 @@
+
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import type { Metadata } from "next";
 
 const siteUrl = "https://muralidharan-portfolio-3782.vercel.app";
 
@@ -69,18 +69,6 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
-
 export const viewport: Viewport = {
   colorScheme: "light",
   themeColor: "#ffffff",
@@ -91,7 +79,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
       <body className="antialiased">
