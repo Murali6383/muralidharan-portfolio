@@ -7,6 +7,5 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: "https://muralidharan-portfolio-3782.vercel.app/sitemap.xml",
-    host: "https://muralidharan-portfolio-3782.vercel.app",
   };
 }
